@@ -13,10 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Read .ruby-version
+        run: echo "RUBY_VERSION=$(cat backend/.ruby-version | xargs)" >> $GITHUB_ENV
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: backend/.ruby-version
+          ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
           working-directory: backend
 
@@ -31,10 +34,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Read .ruby-version
+        run: echo "RUBY_VERSION=$(cat backend/.ruby-version | xargs)" >> $GITHUB_ENV
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: backend/.ruby-version
+          ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
           working-directory: backend
 
@@ -48,10 +54,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Read .ruby-version
+        run: echo "RUBY_VERSION=$(cat backend/.ruby-version | xargs)" >> $GITHUB_ENV
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: backend/.ruby-version
+          ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
           working-directory: backend
 
