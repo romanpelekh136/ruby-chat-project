@@ -12,3 +12,4 @@
 # Local environment variables
 .env
 .env.local
+/.gem_rbs_collection/

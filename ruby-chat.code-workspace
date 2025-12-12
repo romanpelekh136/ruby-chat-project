@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "name": "backend",
+      "path": "backend"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "backend": true
+    }
+  }
+}
