@@ -4,17 +4,11 @@ This is a chat application project.
 
 ## Project Structure
 
-- `backend/`: The Rails backend application.
+- This repository is a single Rails application (Hotwire/Turbo + Stimulus) living at the repo root.
 
 ## Getting Started
 
-### Backend
-
-Navigate to the backend directory:
-
-```bash
-cd backend
-```
+### App
 
 Install dependencies:
 
