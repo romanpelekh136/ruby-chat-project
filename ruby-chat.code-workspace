@@ -5,13 +5,13 @@
       "path": "."
     },
     {
-      "name": "backend",
-      "path": "backend"
+      "name": "app",
+      "path": "app"
     }
   ],
   "settings": {
     "files.exclude": {
-      "backend": true
+      "app": true
     }
   }
 }
