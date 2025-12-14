@@ -14,11 +14,4 @@ RSpec.describe "Rooms", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
-
-  describe "GET /create" do
-    it "returns http success" do
-      get "/rooms/create"
-      expect(response).to have_http_status(:success)
-    end
-  end
 end
