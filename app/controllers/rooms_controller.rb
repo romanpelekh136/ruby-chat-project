@@ -6,6 +6,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+    @messages = @room.messages.includes(:user).order(created_at: :asc)
     @message = Message.new
   end
 

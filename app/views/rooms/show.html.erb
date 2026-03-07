@@ -1,1 +1,14 @@
-<%= @room.name %>
+<h1><%= @room.name %></h1>
+
+<% @messages.each do |message| %>
+  <div>
+    <strong><%= message.user.username %></strong>
+    <p><%= message.body %></p>
+  </div>
+<% end %>
+
+<%= form_with model: [@room, @message] do |f| %>
+  <%= f.text_field :body, autofocus: true , placeholder: "Write new message..." %>
+  <%= f.submit "Send" %>
+<% end %>
+  

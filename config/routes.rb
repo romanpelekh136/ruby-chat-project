@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  get "messages/create"
   devise_for :users
 
-  resources :rooms, only: [ :index, :show, :create ]
+  resources :rooms, only: [ :index, :show, :create ] do
+    resources :messages, only: [ :create ]
+  end
 
   root "rooms#index"
 
