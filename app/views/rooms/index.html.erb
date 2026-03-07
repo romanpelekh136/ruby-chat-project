@@ -1,7 +1,12 @@
 <h1>Chat Rooms</h1>
 
+<%= form_with model: @room do |f| %>
+  <%= f.text_field :name, placeholder:"Room name" %>
+  <%= f.submit "Create" %>
+<% end %>
+
 <%@rooms.each do |room|%>
   <div class="room">
-    <%= room.name%>
+    <%= link_to room.name, room_path(room) %>
   <div>
 <%end%>
