@@ -1,12 +1,14 @@
 <h1>Chat Rooms</h1>
 
-<%= form_with model: @room do |f| %>
+<%= turbo_stream_from "rooms" %>
+
+<%= form_with model: @room, id: "new_room_form" do |f| %>
   <%= f.text_field :name, placeholder:"Room name" %>
   <%= f.submit "Create" %>
 <% end %>
 
-<%@rooms.each do |room|%>
-  <div class="room">
-    <%= link_to room.name, room_path(room) %>
-  <div>
-<%end%>
+<div id="rooms">
+  <%@rooms.each do |room|%>
+    <%= render room %>
+  <%end%>
+</div>

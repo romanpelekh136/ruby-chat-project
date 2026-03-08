@@ -12,12 +12,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(name: room_params[:name], user_id: current_user.id)
-    if @room.save
-      redirect_to rooms_path
-    else
-      @rooms = Room.all
-      render :index, status: :unprocessable_entity
-    end
+    @room.save
   end
 
   private

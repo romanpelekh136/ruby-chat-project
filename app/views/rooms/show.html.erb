@@ -1,13 +1,14 @@
 <h1><%= @room.name %></h1>
 
-<% @messages.each do |message| %>
-  <div>
-    <strong><%= message.user.username %></strong>
-    <p><%= message.body %></p>
-  </div>
-<% end %>
+<%= turbo_stream_from @room %>
 
-<%= form_with model: [@room, @message] do |f| %>
+<div id="messages">
+  <% @messages.each do |message| %>
+    <%= render message %>
+  <% end %>
+</div>
+
+<%= form_with model: [@room, @message], id: "new_message_form" do |f| %>
   <%= f.text_field :body, autofocus: true , placeholder: "Write new message..." %>
   <%= f.submit "Send" %>
 <% end %>

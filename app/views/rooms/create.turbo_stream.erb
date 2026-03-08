@@ -1,0 +1,6 @@
+<%= turbo_stream.replace "new_room_form" do %>
+  <%= form_with model: Room.new, id: "new_room_form" do |f| %>
+    <%= f.text_field :name, placeholder:"Room name" %>
+    <%= f.submit "Create" %>
+  <% end %>
+<% end %>

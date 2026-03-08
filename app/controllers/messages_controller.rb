@@ -4,9 +4,7 @@ class MessagesController < ApplicationController
     @message = @room.messages.build(message_params)
     @message.user = current_user
 
-    if @message.save
-      redirect_to @room
-    end
+    @message.save
   end
 
   def message_params
