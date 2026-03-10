@@ -1,10 +1,81 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+body {
+  background-color: #c0c0c0;
+  font-family: "Courier New", Courier, monospace; 
+  padding: 20px;
+}
+
+* {
+  border-radius: 0 !important;
+}
+
+input, button, textarea {
+  border: 1px solid #000;
+  background-color: #fff;
+  padding: 5px 10px;
+  font-family: inherit;
+}
+
+button, input[type="submit"] {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 800px;    
+  margin: 0 auto;
+  background-color: #fff;
+  border: 2px solid #000;
+  padding: 20px;
+}
+
+/* Вікно з повідомленнями */
+#messages {
+  border: 2px solid #000;
+  height: 400px;
+  overflow-y: scroll; /* Додає жорстку полосу прокрутки */
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #fff;
+}
+
+/* Вигляд окремого повідомлення */
+#messages div {
+  border-bottom: 1px solid #000;
+  padding: 8px 0;
+}
+
+/* Список кімнат */
+#rooms {
+  border: 2px solid #000;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  background-color: #fff;
+}
+
+#rooms div {
+  margin-bottom: 5px;
+  padding: 5px;
+  background-color: #e0e0e0;
+  border: 1px solid #000;
+}
+
+#rooms div a {
+  text-decoration: none;
+  color: #000;
+}
+
+#rooms div a:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+form input[type="text"] {
+  flex-grow: 1;
+}

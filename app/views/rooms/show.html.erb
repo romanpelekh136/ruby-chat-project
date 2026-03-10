@@ -8,8 +8,5 @@
   <% end %>
 </div>
 
-<%= form_with model: [@room, @message], id: "new_message_form" do |f| %>
-  <%= f.text_field :body, autofocus: true , placeholder: "Write new message..." %>
-  <%= f.submit "Send" %>
-<% end %>
+<%= render "messages/form", room: @room, message: @message %>
   

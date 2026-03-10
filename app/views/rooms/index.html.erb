@@ -2,10 +2,7 @@
 
 <%= turbo_stream_from "rooms" %>
 
-<%= form_with model: @room, id: "new_room_form" do |f| %>
-  <%= f.text_field :name, placeholder:"Room name" %>
-  <%= f.submit "Create" %>
-<% end %>
+<%= render "form", room: Room.new %>
 
 <div id="rooms">
   <%@rooms.each do |room|%>

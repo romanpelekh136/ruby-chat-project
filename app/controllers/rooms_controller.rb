@@ -12,7 +12,17 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(name: room_params[:name], user_id: current_user.id)
-    @room.save
+    if @room.save
+      render turbo_stream: turbo_stream.replace(
+        "new_room_form",
+        partial: "form",
+        locals: { room: Room.new })
+    else
+      render turbo_stream: turbo_stream.replace(
+        "new_room_form",
+        partial: "form",
+        locals: { room: @room })
+    end
   end
 
   private

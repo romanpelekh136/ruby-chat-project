@@ -1,0 +1,11 @@
+<%= form_with model: room, id: "new_room_form" do |f| %>
+  <% if room.errors.any? %>
+    <div style="color: red"; margin-buttom: 10px;>
+      <%= room.errors.full_messages.to_sentence %>
+    </div>
+  <% end %>
+  
+
+  <%= f.text_field :name, placeholder:"Room name" %>
+  <%= f.submit "Create" %>
+<% end %>

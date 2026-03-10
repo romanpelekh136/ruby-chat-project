@@ -1,6 +1,3 @@
 <%= turbo_stream.replace "new_message_form" do %>
-  <%= form_with model: [@room, Message.new], id: "new_message_form" do |f| %>
-    <%= f.text_field :body, autofocus: true, placeholder: "Write new message..." %>
-    <%= f.submit "Send" %>
-  <% end %>
+  <%= render "messages/form", room: @room, message: Message.new %>
 <% end %>
