@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   def index
-    @rooms = Room.all
+    @rooms = Room.order(created_at: :desc)
     @room = Room.new
   end
 
@@ -11,18 +11,18 @@ class RoomsController < ApplicationController
   end
 
   def create
-    @room = Room.new(name: room_params[:name], user_id: current_user.id)
+    @room = current_user.rooms.build(room_params)
+
     if @room.save
-      render turbo_stream: turbo_stream.replace(
-        "new_room_form",
-        partial: "form",
-        locals: { room: Room.new })
-    else
-      render turbo_stream: turbo_stream.replace(
-        "new_room_form",
-        partial: "form",
-        locals: { room: @room })
+      @room.broadcast_prepend_to "rooms", partial: "rooms/room", locals: { room: @room, current_user: nil }
     end
+  end
+
+  def destroy
+    @room = Room.find(params[:id])
+    authorize @room
+
+    @room.destroy
   end
 
   private

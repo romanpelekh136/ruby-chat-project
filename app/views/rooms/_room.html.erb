@@ -1,3 +1,13 @@
-<div id="<%= dom_id(room) %>">
-  <%= link_to room.name, room_path(room) %>
+<% viewer = local_assigns.fetch(:current_user, (current_user rescue nil)) %>
+
+<div id="<%= dom_id(room) %>" style="display: flex; justify-content: space-between; align-items: center; width: auto;">
+  <% if room.persisted? %>
+    <%= link_to room.name, room_path(room) %>
+
+    <% if viewer && RoomPolicy.new(viewer, room).destroy? %>
+      <%= button_to "X", room_path(room), method: :delete, form: { data: { turbo_confirm: "Are you sure?" }, style: "display: contents;" }, style: "background-color: red; color: white; padding: 2px 8px; cursor: pointer;" %>
+    <% end %>
+  <% else %>
+    <%= room.name %>
+  <% end %>
 </div>

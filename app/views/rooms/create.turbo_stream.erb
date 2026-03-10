@@ -1,0 +1,6 @@
+<% if @room.persisted? %>
+  <%= turbo_stream.replace "new_room_form", partial: "form", locals: { room: Room.new } %>
+  <%= turbo_stream.prepend "rooms", partial: "rooms/room", locals: { room: @room, current_user: current_user } %>
+<% else %>
+  <%= turbo_stream.replace "new_room_form", partial: "form", locals: { room: @room } %>
+<% end %>
