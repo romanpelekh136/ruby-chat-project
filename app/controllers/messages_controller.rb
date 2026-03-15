@@ -4,7 +4,10 @@ class MessagesController < ApplicationController
     @message = @room.messages.build(message_params)
     @message.user = current_user
 
-    @message.save
+    if @message.save
+    else
+      render :create, status: :unprocessable_content
+    end
   end
 
   def message_params
