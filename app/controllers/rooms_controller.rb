@@ -15,6 +15,8 @@ class RoomsController < ApplicationController
 
     if @room.save
       @room.broadcast_prepend_to "rooms", partial: "rooms/room", locals: { room: @room, current_user: nil }
+    else
+      render status: :unprocessable_entity
     end
   end
 

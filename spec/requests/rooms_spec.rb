@@ -52,8 +52,55 @@ RSpec.describe "Rooms", type: :request do
   end
 
   describe "POST /create" do
+    before { sign_in user, scope: :user }
+
+    it 'successfully creates room' do
+      expect {
+        post rooms_path(format: :turbo_stream), params: { room: { name: "Gaming room" } }
+      }.to change(Room, :count).by(1)
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'does not create a room with invalid params' do
+      expect {
+        post rooms_path(format: :turbo_stream), params: { room: { name: nil } }
+      }.to change(Room, :count).by(0)
+
+      expect(response).to have_http_status(:unprocessable_content)
+    end
   end
 
   describe "DELETE /destroy" do
+    let(:admin) { create(:user, role: 1) }
+    let(:user) { create(:user) }
+    context 'when user is the creator or an admin' do
+      before do
+        sign_in admin, scope: :user
+      end
+      it 'deletes room' do
+        room = create(:room, user: user)
+
+        expect {
+          delete room_path(room, format: :turbo_stream)
+        }.to change(Room, :count).by(-1)
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'when user is not the creator or an admin' do
+      before do
+        sign_in user, scope: :user
+      end
+      it 'redirects to root and send alert' do
+        room = create(:room, user: admin)
+
+        expect {
+          delete room_path(room, format: :turbo_stream)
+        }.to change(Room, :count).by(0)
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq("You are not authorized to perform this action.")
+      end
+    end
   end
 end
