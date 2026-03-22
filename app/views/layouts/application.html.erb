@@ -20,9 +20,21 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <meta name="current-user-id" content="<%= current_user&.id %>">
+    <meta name="current-user-admin" content="<%= current_user&.admin? %>">
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <% if user_signed_in? %>
+        <nav style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #ccc; display: flex; align-items: center; gap: 15px;">
+          <%= link_to "Home", root_path %>
+          <span>User: <%= current_user.username %></span>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+        </nav>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>
