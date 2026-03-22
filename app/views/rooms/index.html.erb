@@ -1,7 +1,11 @@
 <h1>Chat Rooms</h1>
 
-<%@rooms.each do |room|%>
-  <div class="room">
-    <%= room.name%>
-  <div>
-<%end%>
+<%= turbo_stream_from "rooms" %>
+
+<%= render "form", room: Room.new %>
+
+<div id="rooms">
+  <%@rooms.each do |room|%>
+    <%= render room %>
+  <%end%>
+</div>

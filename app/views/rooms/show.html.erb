@@ -1,1 +1,12 @@
-<%= @room.name %>
+<h1><%= @room.name %></h1>
+
+<%= turbo_stream_from @room %>
+
+<div id="messages" data-controller="scroll">
+  <% @messages.each do |message| %>
+    <%= render message %>
+  <% end %>
+</div>
+
+<%= render "messages/form", room: @room, message: @message %>
+  
