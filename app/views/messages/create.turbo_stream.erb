@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "new_message_form" do %>
+  <%= render "messages/form", room: @room, message: Message.new %>
+<% end %>
