@@ -103,4 +103,24 @@ RSpec.describe "Rooms", type: :request do
       end
     end
   end
+
+  describe "PUT /update" do
+    let(:admin) { create(:user, role: 1) }
+    let(:user) { create(:user) }
+    let(:room) { create(:room, name: "Adastra fan club", user: user) }
+
+    context 'when user is creator or admin' do
+      before do
+        sign_in admin, scope: :user
+      end
+
+      it 'returns success' do
+        patch room_path(room, format: :turbo_stream), params: { room: { name: "New room name!" } }
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'when user is not creator nor admin' do
+    end
+  end
 end
