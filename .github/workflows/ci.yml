@@ -3,9 +3,45 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: backend_test
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d backend_test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5433/backend_test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Prepare database
+        run: bin/rails db:migrate
+
+      - name: Run RSpec
+        run: bundle exec rspec
+
   scan_ruby:
     runs-on: ubuntu-latest
 
@@ -13,13 +49,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Read .ruby-version
-        run: echo "RUBY_VERSION=$(cat .ruby-version | xargs)" >> $GITHUB_ENV
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
+          ruby-version: .ruby-version
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
@@ -32,13 +65,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Read .ruby-version
-        run: echo "RUBY_VERSION=$(cat .ruby-version | xargs)" >> $GITHUB_ENV
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
+          ruby-version: .ruby-version
           bundler-cache: true
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
@@ -50,13 +80,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Read .ruby-version
-        run: echo "RUBY_VERSION=$(cat .ruby-version | xargs)" >> $GITHUB_ENV
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
+          ruby-version: .ruby-version
           bundler-cache: true
 
       - name: Lint code for consistent style

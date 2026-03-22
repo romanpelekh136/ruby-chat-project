@@ -1,0 +1,4 @@
+<div id="<%= dom_id(message) %>" class="chat-bubble" data-controller="message" data-author-id="<%= message.user_id %>">
+  <strong><%= message.user.username %></strong>
+  <p><%= message.body %></p>
+</div>
