@@ -2,7 +2,7 @@
 
 <%= turbo_stream_from @room %>
 
-<div id="messages">
+<div id="messages" data-controller="scroll">
   <% @messages.each do |message| %>
     <%= render message %>
   <% end %>
