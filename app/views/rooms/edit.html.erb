@@ -1,0 +1,7 @@
+<%= turbo_frame_tag dom_id(@room) do %>
+  <%= form_with model: @room, class: "edit-room-form" do |f| %>
+    <%= f.text_field :name, required: true, autofocus: true, autocomplete: "off" %>
+    <%= f.submit "Save", class: "btn" %>
+    <%= link_to "Cancel", rooms_path, class: "btn" %>
+  <% end %>
+<% end %>

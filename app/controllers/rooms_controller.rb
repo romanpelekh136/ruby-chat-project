@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [ :show, :destroy, :update ]
+  before_action :set_room, only: [ :show, :destroy, :update, :edit ]
   def index
     @rooms = Room.order(created_at: :desc)
     @room = Room.new
@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
     @room = current_user.rooms.build(room_params)
 
     if @room.save
-      @room.broadcast_prepend_to "rooms", partial: "rooms/room", locals: { room: @room, current_user: nil }
+      @room.broadcast_prepend_to "rooms"
     else
       render status: :unprocessable_entity
     end
@@ -33,6 +33,10 @@ class RoomsController < ApplicationController
     else
       render status: :unprocessable_entity
     end
+  end
+
+  def edit
+    authorize @room
   end
 
   private

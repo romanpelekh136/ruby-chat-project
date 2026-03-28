@@ -16,7 +16,7 @@ input, button, textarea {
 }
 
 button, input[type="submit"] {
-  background-color: #e0e0e0;
+  background-color: #f4f4f4;
   cursor: pointer;
 }
 
@@ -70,7 +70,7 @@ button, input[type="submit"] {
 #rooms div {
   margin-bottom: 5px;
   padding: 5px;
-  background-color: #e0e0e0;
+  background-color: #ffffff;
   border: 1px solid #000;
 }
 
@@ -101,4 +101,43 @@ form#new_user {
   align-items: end;
   width: 100%;
   max-width: 400px;
+}
+
+
+.dropdown {
+  position: relative; /* Anchors the menu to the dots */
+}
+
+/* Hide the default browser arrow next to the summary */
+.dropdown summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute; /* Floats the menu */
+  right: 0;           /* Aligns it to the right edge of the dots */
+  top: 100%;          /* Pushes it right below the dots */
+  
+  background: white;
+  border: 1px solid black;
+  min-width: 120px;
+  z-index: 10;        /* Ensures it stays on top of other messages */
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 8px;
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background: #e0e0e0;
+}
+
+.dots-btn {
+  display: inline-block;
+  transform: rotate(90deg);
+  font-size: 14px;
 }
