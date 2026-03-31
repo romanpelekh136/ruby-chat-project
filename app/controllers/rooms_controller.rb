@@ -30,6 +30,10 @@ class RoomsController < ApplicationController
     authorize @room
 
     if @room.update(room_params)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to @room }
+      end
     else
       render status: :unprocessable_entity
     end
