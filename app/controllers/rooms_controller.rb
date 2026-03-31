@@ -39,7 +39,7 @@ class RoomsController < ApplicationController
         format.html { redirect_to @room }
       end
     else
-      render status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
