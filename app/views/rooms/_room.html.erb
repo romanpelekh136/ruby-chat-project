@@ -1,13 +1,17 @@
-<% viewer = local_assigns.fetch(:current_user, (current_user rescue nil)) %>
-
-<div id="<%= dom_id(room) %>" style="display: flex; justify-content: space-between; align-items: center; width: auto;">
-  <% if room.persisted? %>
-    <%= link_to room.name, room_path(room) %>
-
-    <% if viewer && RoomPolicy.new(viewer, room).destroy? %>
-      <%= button_to "X", room_path(room), method: :delete, form: { data: { turbo_confirm: "Are you sure?" }, style: "display: contents;" }, style: "background-color: red; color: white; padding: 2px 8px; cursor: pointer;" %>
+<%= turbo_frame_tag room do %>
+  <div style="display: flex; justify-content: space-between; align-items: center; width: auto;">
+    <% if room.persisted? %>
+      <%= link_to room.name, room_path(room), data: { turbo_frame: "_top" } %>
+      
+      <details class="dropdown" data-controller="author-visibility" data-author-visibility-author-id-value="<%= room.user_id %>" style="display: none;">
+        <summary class="dots-btn">...</summary>
+          <div class="dropdown-menu">
+              <%= link_to "Change Name", edit_room_path(room) %>
+              <%= button_to "Delete", room_path(room), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }%>
+            </div>
+      </details>
+    <% else %>
+      <%= room.name %>
     <% end %>
-  <% else %>
-    <%= room.name %>
-  <% end %>
-</div>
+  </div>
+<% end %>

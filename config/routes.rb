@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "messages/create"
   devise_for :users
 
-  resources :rooms, only: [ :index, :show, :create, :destroy ] do
+  resources :rooms, only: [ :index, :show, :create, :destroy, :update, :edit ] do
     resources :messages, only: [ :create ]
   end
 

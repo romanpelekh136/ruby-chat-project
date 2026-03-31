@@ -103,4 +103,34 @@ RSpec.describe "Rooms", type: :request do
       end
     end
   end
+
+  describe "PATCH /rooms/:id" do
+    let(:admin) { create(:user, role: 1) }
+    let(:user) { create(:user) }
+    let(:another_user) { create(:user) }
+    let(:room) { create(:room, name: "Adastra fan club", user: user) }
+
+    context 'when user is the creator or an admin' do
+      before do
+        sign_in admin, scope: :user
+      end
+
+      it 'updates the room name and returns success' do
+        patch room_path(room, format: :turbo_stream), params: { room: { name: "New room name!" } }
+        expect(response).to have_http_status(:success)
+        expect(room.reload.name).to eq("New room name!")
+      end
+    end
+
+    context 'when user is not the creator or an admin' do
+      before do
+        sign_in another_user, scope: :user
+      end
+      it 'redirects to home page and sends alert' do
+        patch room_path(room, format: :turbo_stream), params: { room: { name: "New room name!" } }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq("You are not authorized to perform this action.")
+      end
+    end
+  end
 end

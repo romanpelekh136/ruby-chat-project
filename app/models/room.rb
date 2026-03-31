@@ -4,6 +4,5 @@ class Room < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 3, maximum: 50 }
 
-  # after_create_commit  -> { broadcast_prepend_to "rooms" }
   after_destroy_commit -> { broadcast_remove_to "rooms" }
 end
