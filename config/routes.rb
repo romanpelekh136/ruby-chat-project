@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   root "rooms#index"
 
   get "up" => "rails/health#show", as: :rails_health_check
+
+  namespace :api do
+    resources :rooms, only: [ :index, :show ]
+  end
 end
