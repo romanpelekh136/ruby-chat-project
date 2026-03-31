@@ -1,4 +1,4 @@
-<%= turbo_frame_tag dom_id(room) do %>
+<%= turbo_frame_tag room do %>
   <div style="display: flex; justify-content: space-between; align-items: center; width: auto;">
     <% if room.persisted? %>
       <%= link_to room.name, room_path(room), data: { turbo_frame: "_top" } %>
