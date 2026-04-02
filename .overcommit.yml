@@ -1,0 +1,6 @@
+PreCommit:
+  RuboCop:
+    enabled: true
+
+  RSpec:
+    enabled: true

@@ -70,3 +70,5 @@ group :development do
 
   gem "faker"
 end
+
+gem "overcommit", "~> 0.69.0", group: :development, require: false
