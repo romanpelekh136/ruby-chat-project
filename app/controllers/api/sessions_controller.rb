@@ -3,7 +3,7 @@ module Api
     skip_before_action :authenticate_api_user!, only: [ :create ]
 
     def create
-      user = User.find(email: params[:email])
+      user = User.find_by(email: params[:email])
 
       if user&.valid_password?(params[:password])
         render json: { email: user.email, token: user.api_token }, status: :ok

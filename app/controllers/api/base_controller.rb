@@ -1,5 +1,7 @@
 module Api
   class BaseController < ActionController::API
+    include ApiErrorHandling
+
     before_action :authenticate_api_user!
 
     private
