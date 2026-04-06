@@ -1,15 +1,27 @@
 module Api
   class RoomsController < Api::BaseController
-    before_action :set_room, only: [ :show ]
+    before_action :set_room, only: [ :show, :destroy ]
 
     def index
       @rooms = Room.order(created_at: :desc)
-      render json: @rooms
+      render json: RoomBlueprint.render(@rooms)
     end
 
     def show
       @messages = @room.messages.includes(:user).order(created_at: :asc)
-      render json: @messages
+      render json: MessageBlueprint.render(@messages)
+    end
+
+    def create
+      @room = Room.create!(room_params.merge(user: current_user))
+      render json: RoomBlueprint.render(@room)
+    end
+
+    def destroy
+      authorize @room
+
+      @room.destroy
+      head :no_content
     end
 
     private

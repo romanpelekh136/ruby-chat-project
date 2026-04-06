@@ -13,6 +13,6 @@ Rails.application.routes.draw do
     post "register", to: "registration#create"
     post "login", to: "sessions#create"
 
-    resources :rooms, only: [ :index, :show ]
+    resources :rooms, only: [ :index, :show, :destroy, :create ]
   end
 end

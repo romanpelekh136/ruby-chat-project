@@ -1,6 +1,7 @@
 module Api
   class BaseController < ActionController::API
     include ApiErrorHandling
+    include Pundit::Authorization
 
     before_action :authenticate_api_user!
 

@@ -62,13 +62,15 @@ group :development, :test do
   gem "ruby-lsp-rspec", require: false
 
   gem "factory_bot_rails"
+
+  gem "faker"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
-  gem "faker"
 end
 
 gem "overcommit", "~> 0.69.0", group: :development, require: false
+
+gem "blueprinter", "~> 1.2"
