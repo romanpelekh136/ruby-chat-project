@@ -19,11 +19,11 @@ module ApiErrorHandling
   end
 
   def render_forbidden(exception)
-    render json: { error: "You are not allowed to performe this operation!" }, status: :forbidden
+    render json: { error: "You are not allowed to perform this operation!" }, status: :forbidden
   end
 
   def render_standard_error(exception)
-    raise exception if Rails.env.development?
+    raise exception if Rails.env.development? || Rails.env.test?
     render json: { error: "Internal server error" }, status: :internal_server_error
   end
 end

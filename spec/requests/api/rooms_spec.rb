@@ -20,7 +20,7 @@ RSpec.describe "Api::Rooms", type: :request do
       end
     end
 
-    context 'whan user is not logged in' do
+    context 'when user is not logged in' do
       it 'returns code 401' do
         get api_rooms_path
 
@@ -29,20 +29,21 @@ RSpec.describe "Api::Rooms", type: :request do
     end
   end
 
-  describe "GET /api/rooms/id" do
+  describe "GET /api/room/id" do
     let!(:user) { create(:user, api_token: "token123") }
-    let(:room) { create(:room, user: user, name: "Adastra") }
+    let!(:room) { create(:room, user: user, name: "Adastra") }
+    let!(:message) { create(:message, user: user, room: room) }
     context 'when user logged in' do
-      it 'returns room' do
-        get api_rooms_path(room),
+      it 'returns messages of the room' do
+        get api_room_path(room),
         headers: { "Authorization"=>"Bearer token123" }
-        expect(response.body). to include("Adastra")
+        expect(response.body). to include("MyText")
         expect(response).to have_http_status(:ok)
       end
     end
     context 'when user is not logged in' do
       it 'returns code :unauthorized' do
-        get api_rooms_path(room)
+        get api_room_path(room)
 
         expect(response).to have_http_status(:unauthorized)
       end

@@ -6,7 +6,7 @@ module Api
       user = User.find_by(email: params[:email])
 
       if user&.valid_password?(params[:password])
-        render json: { email: user.email, token: user.api_token }, status: :ok
+        render json: { email: user.email, api_token: user.api_token }, status: :ok
       else
         render json: { error: "Invalid email or password" }, status: :unauthorized
       end
