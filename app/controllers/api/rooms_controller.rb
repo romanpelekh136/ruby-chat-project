@@ -14,7 +14,7 @@ module Api
 
     def create
       @room = Room.create!(room_params.merge(user: current_user))
-      render json: RoomBlueprint.render(@room)
+      render json: RoomBlueprint.render(@room), status: :created
     end
 
     def destroy
