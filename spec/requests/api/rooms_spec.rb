@@ -85,10 +85,19 @@ RSpec.describe "Api::Rooms", type: :request do
 
         expect(response).to have_http_status(:no_content)
       end
+
+      context 'and user is not the creator of the room' do
+        it 'returns code :forbidden' do
+          expect {
+            delete api_room_path(room),
+            headers: { "Authorization"=>"Bearer another_token" }
+          }.to change(Room, :count).by(0)
+
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
     end
 
-    context 'when user is not a creator of a room' do
-    end
     context 'when user is not logged in' do
       it 'returns code "unauthorized' do
         delete api_room_path(room)
