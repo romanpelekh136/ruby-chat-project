@@ -73,4 +73,4 @@ end
 
 gem "overcommit", "~> 0.69.0", group: :development, require: false
 
-gem "blueprinter", "~> 1.2"
+gem "blueprinter", "~> 1.3"
